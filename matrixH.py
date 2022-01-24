@@ -59,6 +59,7 @@ def matrixpc(grid):
 
     for el in grid.elements:
         weights = calkowanie.Punkty(main.PUNKTY_CALKOWANIA).weight
+        # weights.append(weights[0])
         detJ = el.detJupside
         tmp = list()
 
@@ -72,7 +73,9 @@ def matrixpc(grid):
             pcy.append(list(tmp))
 
         # print(el.jakobi)
-
+        if 3 == main.PUNKTY_CALKOWANIA:
+            wx = 0
+            wy = 0
         for i in range(int(math.pow(main.PUNKTY_CALKOWANIA, 2))):
             for j in range(4):
                 if 2 == main.PUNKTY_CALKOWANIA:
@@ -81,10 +84,16 @@ def matrixpc(grid):
                     pcy[i][j] = el.jakobi[1][0] * el.detJupside * el.ksi[(i * 4) + j] +\
                                 el.jakobi[1][1] * el.detJupside * el.eta[(i * 4) + j]
                 if 3 == main.PUNKTY_CALKOWANIA:
-                    pcx[i][j] = (el.jakobi[0][0] * el.detJupside) * el.ksi[(i * 4) + j] +\
-                                (el.jakobi[0][1] * el.detJupside) * el.eta[(i * 4) + j] * weights[0]
-                    pcy[i][j] = el.jakobi[1][0] * el.detJupside * el.ksi[(i * 4) + j] + \
-                               el.jakobi[1][1] * el.detJupside * el.eta[(i * 4) + j] * weights[1]
+                    pcx[i][j] = ((el.jakobi[0][0] * el.detJupside) * el.ksi[(i * 4) + j] +\
+                                 (el.jakobi[0][1] * el.detJupside) * el.eta[(i * 4) + j]) * math.pow(5/9,2)#weights[wx] * weights[wx]
+                    pcy[i][j] = (el.jakobi[1][0] * el.detJupside * el.ksi[(i * 4) + j] + \
+                               el.jakobi[1][1] * el.detJupside * el.eta[(i * 4) + j]) * math.pow(5/9,2)#weights[wy] * weights[wy]
+
+            wx += 1
+            if i % 3 == 0 and i != 0:
+                wy += 1
+            if wx == 3:
+                wx = 0
 
         tmp_zero = list()
         for i in range(4):
@@ -104,6 +113,6 @@ def matrixpc(grid):
             for i in range(4):
                 for j in range(4):
                     dv[i][j] = ((pcx[k][i] * pcx[k][j]) + (pcy[k][i] * pcy[k][j])) * main.K * el.detJ
-                    if 3 == main.PUNKTY_CALKOWANIA:
-                        dv[i][j] *= weights[k]
+                    # if 3 == main.PUNKTY_CALKOWANIA:
+                    #     dv[i][j] *= weights[k]
                     el.h[i][j] += dv[i][j]

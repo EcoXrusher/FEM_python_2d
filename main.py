@@ -10,7 +10,7 @@ import matrixC
 import matrixH
 import vectorp
 
-PUNKTY_CALKOWANIA = 2
+PUNKTY_CALKOWANIA = 3
 K = 25
 alfa = 300
 t_amb = 1200

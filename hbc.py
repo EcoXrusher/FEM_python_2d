@@ -61,13 +61,14 @@ def c_hbc(grid):
                         arr1[j].append((tmp[j] * tmp[k]) * weights[0])
                         arr2[j].append((tmp[j + 4] * tmp[k + 4]) * weights[1])
                         if 3 == main.PUNKTY_CALKOWANIA:
-                            arr3[j].append((tmp[j + 8] * tmp[k] + 8) * weights[2])
+                            arr3[j].append((tmp[j + 8] * tmp[k + 8]) * weights[2])
+                tmp = list()
                 for j in range(4):
                     for k in range(4):
                         tmp = arr1[j][k] + arr2[j][k]
                         if 3 == main.PUNKTY_CALKOWANIA:
                             tmp += arr3[j][k]
-                        hbc[j][k] += tmp * main.alfa * det[0]
+                        hbc[j][k] += tmp * main.alfa * det[0] / math.pow(main.PUNKTY_CALKOWANIA,2)
             if nodes[1].boundary == True and nodes[2].boundary == True:
                 tmp = list()
                 for j in range(4 * main.PUNKTY_CALKOWANIA):
@@ -96,15 +97,17 @@ def c_hbc(grid):
                 for j in range(4):
                     for k in range(4):
                         arr1[j].append((tmp[j] * tmp[k])* weights[0])
-                        arr2[j].append((tmp[j +4 ] * tmp[k + 4]) * weights[1])
+                        arr2[j].append((tmp[j + 4 ] * tmp[k + 4]) * weights[1])
                         if 3 == main.PUNKTY_CALKOWANIA:
-                            arr3[j].append((tmp[j + 8] * tmp[k] + 8) * weights[2])
+                            arr3[j].append((tmp[j + 8] * tmp[k + 8]) * weights[2])
+
+                tmp = 0.0
                 for j in range(4):
                     for k in range(4):
                         tmp = arr1[j][k] + arr2[j][k]
                         if 3 == main.PUNKTY_CALKOWANIA:
                             tmp += arr3[j][k]
-                        hbc[j][k] += tmp * main.alfa * det[1]
+                        hbc[j][k] += tmp * main.alfa * det[1] / math.pow(main.PUNKTY_CALKOWANIA,2)
             if nodes[2].boundary == True and nodes[3].boundary == True:
                 tmp = list()
                 for j in range(4 * main.PUNKTY_CALKOWANIA):
@@ -132,16 +135,17 @@ def c_hbc(grid):
                         arr3.append(list())
                 for j in range(4):
                     for k in range(4):
-                        arr1[j].append((tmp[j] * tmp[k])* weights[0])
+                        arr1[j].append((tmp[j] * tmp[k]) * weights[0])
                         arr2[j].append((tmp[j + 4] * tmp[k + 4]) * weights[1])
                         if 3 == main.PUNKTY_CALKOWANIA:
-                            arr3[j].append((tmp[j + 8] * tmp[k] + 8) * weights[2])
+                            arr3[j].append((tmp[j + 8] * tmp[k + 8]) * weights[2])
+                tmp = list()
                 for j in range(4):
                     for k in range(4):
                         tmp = arr1[j][k] + arr2[j][k]
                         if 3 == main.PUNKTY_CALKOWANIA:
                             tmp += arr3[j][k]
-                        hbc[j][k] += tmp * main.alfa * det[2]
+                        hbc[j][k] += tmp * main.alfa * det[2] / math.pow(main.PUNKTY_CALKOWANIA,2)
 
             if nodes[0].boundary == True and nodes[3].boundary == True:
                 tmp = list()
@@ -179,11 +183,12 @@ def c_hbc(grid):
                         arr2[j].append((hld[1][j] * hld[1][k]) * weights[1])
                         if 3 == main.PUNKTY_CALKOWANIA:
                             arr3[j].append((hld[2][j] * hld[2][k]) * weights[2])
+                tmp = list()
                 for j in range(4):
                     for k in range(4):
                         tmp = arr1[j][k] + arr2[j][k]
                         if 3 == main.PUNKTY_CALKOWANIA:
                             tmp += arr3[j][k]
-                        hbc[j][k] += tmp * main.alfa * det[3]
+                        hbc[j][k] += tmp * main.alfa * det[3] / math.pow(main.PUNKTY_CALKOWANIA,2)
         el.hbc = list(hbc)
         print(f'new hbc calculus el{el.element_number}\n{el.hbc}')
