@@ -110,6 +110,7 @@ def countc(grid):
         # if el.element_number == 0:
         #     print(f'nodes : {tmp}')
         # print(len(grid.c_global))
+        print(f'local c : {len(el.c_local)}')
         for i in range(4):
             for j in range(4):
                 grid.c_global[(tmp[i] * grid.nN) + tmp[j]] += el.c_local[(i * 4) + j]

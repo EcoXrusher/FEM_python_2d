@@ -20,7 +20,7 @@ end_time = 500
 
 
 if __name__ == '__main__':
-    greed = grid.Grid(0.1, 0.1, 5, 5)
+    greed = grid.Grid(0.1, 0.1, 4, 4)
     # kt = 30
     if greed.nN != 16 or main.PUNKTY_CALKOWANIA != 2:
         print("symulacja dla reakcji egzotermicznej z chłodzeniem rdzenia")

@@ -7,6 +7,38 @@ import main
 def ksztaltKsi(element) -> list():
     ret = list()
     data = list(calkowanie.Punkty(main.PUNKTY_CALKOWANIA).nodes)
+    # print('ksiiiii')
+    print(main.PUNKTY_CALKOWANIA)
+    if main.PUNKTY_CALKOWANIA == 3:
+        data.append(data[2])
+        data.append(data[1])
+        data.append(data[0])
+        data += calkowanie.Punkty(main.PUNKTY_CALKOWANIA).nodes
+        # print('ksi data')
+        # print(len(data))
+        for i in range(main.PUNKTY_CALKOWANIA):
+            for j in range(main.PUNKTY_CALKOWANIA):
+                ret.append(count1(data.__getitem__((i*3)+j)))
+                ret.append(count2(data.__getitem__((i*3)+j)))
+                ret.append(count3(data.__getitem__((i*3)+j)))
+                ret.append(count4(data.__getitem__((i*3)+j)))
+    if main.PUNKTY_CALKOWANIA == 2:
+        for i in range(len(data)):
+            for j in range(len(data)):
+                ret.append(count1(data.__getitem__(i)))
+                ret.append(count2(data.__getitem__(i)))
+                ret.append(count3(data.__getitem__(i)))
+                ret.append(count4(data.__getitem__(i)))
+                # print('ret2')
+
+    return ret
+
+
+def ksztaltEta(element) -> list():
+    ret = list()
+    data = list()
+    data = calkowanie.Punkty(main.PUNKTY_CALKOWANIA).nodes
+
     if main.PUNKTY_CALKOWANIA == 3:
         data.append(data[2])
         data.append(data[1])
@@ -16,32 +48,18 @@ def ksztaltKsi(element) -> list():
         for i in range(main.PUNKTY_CALKOWANIA):
             for j in range(main.PUNKTY_CALKOWANIA):
                 ret.append(count1(data.__getitem__((i*3)+j)))
-                ret.append(count2(data.__getitem__((i*3)+j)))
-                ret.append(count3(data.__getitem__((i*3)+j)))
                 ret.append(count4(data.__getitem__((i*3)+j)))
+                ret.append(count3(data.__getitem__((i*3)+j)))
+                ret.append(count2(data.__getitem__((i*3)+j)))
         return ret
 
     for i in range(len(data)):
         for j in range(len(data)):
-            ret.append(count1(data.__getitem__(i)))
-            ret.append(count2(data.__getitem__(i)))
-            ret.append(count3(data.__getitem__(i)))
-            ret.append(count4(data.__getitem__(i)))
-
-    return ret
-
-
-def ksztaltEta(element) -> list():
-    ret = list()
-    data = list
-    data = calkowanie.Punkty(main.PUNKTY_CALKOWANIA)
-    for i in range(len(data.nodes)):
-        for j in range(len(data.nodes)):
             # print(data.nodes.__getitem__(j))
-            ret.append(count1(data.nodes.__getitem__(j)))
-            ret.append(count4(data.nodes.__getitem__(j)))
-            ret.append(count3(data.nodes.__getitem__(j)))
-            ret.append(count2(data.nodes.__getitem__(j)))
+            ret.append(count1(data.__getitem__(j)))
+            ret.append(count4(data.__getitem__(j)))
+            ret.append(count3(data.__getitem__(j)))
+            ret.append(count2(data.__getitem__(j)))
             # print('.')
 
     # for i in range(int(len(ret)/2)):
@@ -106,6 +124,7 @@ def liczDet(grid):
         value[0].append(0)
         value[1].append(0)
         value[1].append(0)
+        # print(len(el.ksi))
         for i in range(int(math.pow(main.PUNKTY_CALKOWANIA, 2))):
             for j in range(4):
                 value[0][0] += el.ksi[(i * 4) + j] * grid.nodes[el.node[j]].x

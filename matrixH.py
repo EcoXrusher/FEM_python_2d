@@ -49,9 +49,9 @@ def matrixpc(grid):
                     pcy[i][j] = el.jakobi[1][0] * el.detJupside * el.ksi[(i * 4) + j] + el.jakobi[1][1] * el.detJupside * el.eta[(i * 4) + j]
                 if 3 == main.PUNKTY_CALKOWANIA:
                     pcx[i][j] = (el.jakobi[0][0] * el.detJupside) * el.ksi[(i * 4) + j] + (
-                               el.jakobi[0][1] * el.detJupside) * el.eta[(i * 4) + j]
-                    pcy[i][j] = el.jakobi[1][0] * el.detJupside * el.ksi[(i * 4) + j] + el.jakobi[1][
-                        1] * el.detJupside * el.eta[(i * 4) + j]
+                               el.jakobi[0][1] * el.detJupside) * el.eta[(i * 4) + j] * weights[i]
+                    pcy[i][j] = el.jakobi[1][0] * el.detJupside * el.ksi[(i * 4) + j] + \
+                               el.jakobi[1][1] * el.detJupside * el.eta[(i * 4) + j] * weights[j]
 
         tmp_zero = list()
         for i in range(4):

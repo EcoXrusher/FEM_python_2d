@@ -79,19 +79,19 @@ def run_sim(t0, dt, f_time, grid):
         #     for j in range(grid.nN):
         #         print("% .2f" % calculate[x][j], end='')
         #     print(' ]')
-        print(f'vec pcdt t {vec_p_cdt}')
-        print('h+cdt')
-        for j in range(grid.nN):
-            print('[ ',end='')
-            for x in range(grid.nN):
-                print("% .2f" % cal1[j, x],end='')
-            print(' ]')
+        # print(f'vec pcdt t {vec_p_cdt}')
+        # print('h+cdt')
+        # for j in range(grid.nN):
+        #     print('[ ',end='')
+        #     for x in range(grid.nN):
+        #         print("% .2f" % cal1[j, x],end='')
+        #     print(' ]')
 
         tempvec = scipy.linalg.solve(cal1, vec_p_cdt)
         # print(f'vec t \n{tempvec}')
         for x in range(grid.nN):
             t[x] = tempvec[x]
-        print(f'temp vec = {t}')
+        # print(f'temp vec = {t}')
         print(f'temp max = {max(tempvec)} temp min = {min(tempvec)}')
 
 ##############################
