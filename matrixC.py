@@ -54,7 +54,6 @@ def countc(grid):
     c_atr = main.C
     ro_atr = main.ro
     for el in grid.elements:
-        # pc1 pc2 pc4 pc3
         det = 0.0
         det_tmp = list()
         hld = [0, 0]
@@ -71,18 +70,15 @@ def countc(grid):
             det_tmp[1][0] += el.eta[i] * nodes[i].x
             det_tmp[1][1] += el.eta[i] * nodes[i].y
         det = det_tmp[0][0] * det_tmp[1][1] - det_tmp[0][1] * det_tmp[1][0]
-        # print(f'C matrix uses this det = {det} \ncounted from matrix : {det_tmp}')
 
         shape_val = list(countshape(el))
         cp = list()
         holder = list()
         tmp = list()
-        # print(f'shape val for element : {el.element_number}')
-        # lokalny_uklad.printList(shape_val)
         row = 0
+        counter = 0
         for i in range(int(math.pow(main.PUNKTY_CALKOWANIA, 2))):
             holder = shape_val[(i * 4):(i * 4) + 4]
-            # print(f'holder : {holder}')
             tmp = list()
             for j in range(4):
                 for x in range(4):
@@ -96,30 +92,20 @@ def countc(grid):
             else:
                 for index in range(len(el.c_local)):
                     el.c_local[index] += tmp[index]
-            if i % 3 == 0 and i > 0:
-               row += 1
-        # if el.element_number == 0:
-        #     for i in el.c_local:
-        #         print(i)
-        # print(f'local C for el {el.element_number}')
-        # lokalny_uklad.printList(el.c_local)
-        # print(len(el.c_local))
+            counter += 1
+            if counter == 3:
+                row += 1
+                counter = 0
+
         tmp = list()
         for i in el.node:
             tmp.append(i)
-        # if el.element_number == 0:
-        #     print(f'nodes : {tmp}')
-        # print(len(grid.c_global))
-        # print(f'local c : {len(el.c_local)}')
         for i in range(4):
             for j in range(4):
                 grid.c_global[(tmp[i] * grid.nN) + tmp[j]] += el.c_local[(i * 4) + j]
-                # print(f'adding to {tmp[i]},{tmp[j]} = {el.h[(i * 4) + j]}')
     print("Matrix C : ")
     for i in range(grid.nN):
         print('[ ', end='')
         for j in range(grid.nN):
             print(f'{"%.2f" % grid.c_global[(i*grid.nN) + j]} , ', end='')
         print(']')
-
-    # lokalny_uklad.printList(grid.elements[0].eta)
