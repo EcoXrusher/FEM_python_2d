@@ -1,7 +1,9 @@
+import agregate
+import hbc
 import sim
 
 import grid
-import calkowanie
+
 import lokalny_uklad
 import main
 import matrixC
@@ -36,13 +38,15 @@ if __name__ == '__main__':
     lokalny_uklad.liczDet(greed)
 
     matrixH.matrixpc(greed)
-    print('boundary ndoes')
-    for node in greed.nodes:
-        if node.boundary == True:
-            print(node)
+    # print('boundary ndoes')
+    # for node in greed.nodes:
+    #     if node.boundary == True:
+    #         print(node)
 
     # vectorp.uni_node()
 
-    vectorp.count_hbc(greed)
+    vectorp.count_vetor_p(greed)
+    hbc.c_hbc(greed)
+    agregate.agregat(greed)
     matrixC.countc(greed)
     sim.run_sim(main.starting_temp, main.dt, main.end_time, greed)
