@@ -201,7 +201,7 @@ def count_vetor_p(grid):
         for i in range(4):
             p[i] += loc_p[i]*det[i]*main.alfa
 
-        print(f'local p of element {el.element_number}\n{p}')
+        # print(f'local p of element {el.element_number}\n{p}')
         for i in range(len(loc_p)):
             grid.vector_p[nodes[i]] += p[i]
 

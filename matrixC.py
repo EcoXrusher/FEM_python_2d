@@ -103,9 +103,9 @@ def countc(grid):
         for i in range(4):
             for j in range(4):
                 grid.c_global[(tmp[i] * grid.nN) + tmp[j]] += el.c_local[(i * 4) + j]
-    print("Matrix C : ")
-    for i in range(grid.nN):
-        print('[ ', end='')
-        for j in range(grid.nN):
-            print(f'{"%.2f" % grid.c_global[(i*grid.nN) + j]} , ', end='')
-        print(']')
+    # print("Matrix C : ")
+    # for i in range(grid.nN):
+    #     print('[ ', end='')
+    #     for j in range(grid.nN):
+    #         print(f'{"%.2f" % grid.c_global[(i*grid.nN) + j]} , ', end='')
+    #     print(']')

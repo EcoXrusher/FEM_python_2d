@@ -8,7 +8,7 @@ def ksztaltKsi(element) -> list():
     ret = list()
     data = list(calkowanie.Punkty(main.PUNKTY_CALKOWANIA).nodes)
     # print('ksiiiii')
-    print(main.PUNKTY_CALKOWANIA)
+    # print(main.PUNKTY_CALKOWANIA)
     if main.PUNKTY_CALKOWANIA == 3:
         data.append(data[2])
         data.append(data[1])
@@ -38,8 +38,18 @@ def ksztaltEta(element) -> list():
     ret = list()
     data = list()
     data = calkowanie.Punkty(main.PUNKTY_CALKOWANIA).nodes
-
+    # var = data[0]
     if main.PUNKTY_CALKOWANIA == 3:
+        # data = list()
+        # data.append(var)
+        # data.append(var)
+        # data.append(var)
+        # data.append(calkowanie.Punkty(main.PUNKTY_CALKOWANIA).nodes[1])
+        # data.append(calkowanie.Punkty(main.PUNKTY_CALKOWANIA).nodes[1])
+        # data.append(calkowanie.Punkty(main.PUNKTY_CALKOWANIA).nodes[1])
+        # data.append(var)
+        # data.append(var)
+        # data.append(var)
         data.append(data[2])
         data.append(data[1])
         data.append(data[0])

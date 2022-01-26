@@ -80,13 +80,13 @@ def run_sim(t0, dt, f_time, grid):
         #         print("% .2f" % calculate[x][j], end='')
         #     print(' ]')
         # print(f'vec pcdt t {vec_p_cdt}')
-        if i == 0:
-            print('h+cdt')
-            for j in range(grid.nN):
-                print('[ ',end='')
-                for x in range(grid.nN):
-                    print("% .2f" % cal1[j, x],end='')
-                print(' ]')
+        # if i == 0:
+        #     print('h+cdt')
+        #     for j in range(grid.nN):
+        #         print('[ ',end='')
+        #         for x in range(grid.nN):
+        #             print("% .2f" % cal1[j, x],end='')
+        #         print(' ]')
 
         tempvec = scipy.linalg.solve(cal1, vec_p_cdt)
         # print(f'vec t \n{tempvec}')

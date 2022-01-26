@@ -1,4 +1,5 @@
 import math
+from copy import deepcopy
 
 import numpy as np
 
@@ -56,9 +57,24 @@ def matrixpc(grid):
     #                 el.h[j][x] += loc_h[(i * 16) +j+x]
 
 
-
+    weights = list()
+    if 2 == main.PUNKTY_CALKOWANIA:
+        weights.append(1)
+        weights.append(1)
+        weights.append(1)
+        weights.append(1)
+    if 3 == main.PUNKTY_CALKOWANIA:
+        weights.append(5 / 9 * 5 / 9)
+        weights.append(5 / 9 * 8 / 9)
+        weights.append(5 / 9 * 5 / 9)
+        weights.append(5 / 9 * 8 / 9)
+        weights.append(8 / 9 * 8 / 9)
+        weights.append(5 / 9 * 8 / 9)
+        weights.append(5 / 9 * 5 / 9)
+        weights.append(5 / 9 * 8 / 9)
+        weights.append(5 / 9 * 5 / 9)
     for el in grid.elements:
-        weights = calkowanie.Punkty(main.PUNKTY_CALKOWANIA).weight
+        # weights = calkowanie.Punkty(main.PUNKTY_CALKOWANIA).weight
         # weights.append(weights[0])
         detJ = el.detJupside
         tmp = list()
@@ -73,9 +89,8 @@ def matrixpc(grid):
             pcy.append(list(tmp))
 
         # print(el.jakobi)
-        if 3 == main.PUNKTY_CALKOWANIA:
-            wx = 0
-            wy = 0
+        wx = 0
+        wy = 0
         for i in range(int(math.pow(main.PUNKTY_CALKOWANIA, 2))):
             for j in range(4):
                 if 2 == main.PUNKTY_CALKOWANIA:
@@ -85,9 +100,9 @@ def matrixpc(grid):
                                 el.jakobi[1][1] * el.detJupside * el.eta[(i * 4) + j]
                 if 3 == main.PUNKTY_CALKOWANIA:
                     pcx[i][j] = ((el.jakobi[0][0] * el.detJupside) * el.ksi[(i * 4) + j] +\
-                                 (el.jakobi[0][1] * el.detJupside) * el.eta[(i * 4) + j]) * math.pow(5/9,2)#weights[wx] * weights[wx]
+                                 (el.jakobi[0][1] * el.detJupside) * el.eta[(i * 4) + j]) #* weights[wx] * weights[wx] #* math.pow(8/9, 2) weights[wx] * weights[wx]
                     pcy[i][j] = (el.jakobi[1][0] * el.detJupside * el.ksi[(i * 4) + j] + \
-                               el.jakobi[1][1] * el.detJupside * el.eta[(i * 4) + j]) * math.pow(5/9,2)#weights[wy] * weights[wy]
+                                 (el.jakobi[1][1] * el.detJupside * el.eta[(i * 4) + j])) #* weights[wx] * weights[wx]#* math.pow(8/9, 2)#weights[wy] * weights[wy]
 
             wx += 1
             if i % 3 == 0 and i != 0:
@@ -108,11 +123,23 @@ def matrixpc(grid):
         # for i in el.h:
         #     print(i)
         # check = 0
+        counter = 0
+        # lw = deepcopy(weights)
+        # lw4 = deepcopy(lw[0])
         for k in range(int(math.pow(main.PUNKTY_CALKOWANIA, 2))):
+            # print(f"weights: {k}: {lw} {lw4}")
             # print(f'pc {k+1}')
             for i in range(4):
                 for j in range(4):
                     dv[i][j] = ((pcx[k][i] * pcx[k][j]) + (pcy[k][i] * pcy[k][j])) * main.K * el.detJ
-                    # if 3 == main.PUNKTY_CALKOWANIA:
-                    #     dv[i][j] *= weights[k]
+                    if 3 == main.PUNKTY_CALKOWANIA:
+                        # dv[i][j] *= 5/9 * 8/9
+                        dv[i][j] *= weights[k]#lw[0] * lw4 #math.pow(weights[k % 3], 2)
                     el.h[i][j] += dv[i][j]
+            # if 3 == main.PUNKTY_CALKOWANIA:
+            #     lw[0] = lw[1]
+            #     lw[1] = lw[2]
+            #     lw[2] = lw[0]
+            #     if k == 4:
+            #         lw[0] = 8/9
+            #         lw4 = lw[0]

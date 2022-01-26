@@ -191,4 +191,4 @@ def c_hbc(grid):
                             tmp += arr3[j][k]
                         hbc[j][k] += tmp * main.alfa * det[3] / math.pow(main.PUNKTY_CALKOWANIA,2)
         el.hbc = list(hbc)
-        print(f'new hbc calculus el{el.element_number}\n{el.hbc}')
+        # print(f'new hbc calculus el{el.element_number}\n{el.hbc}')

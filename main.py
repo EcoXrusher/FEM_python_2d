@@ -17,12 +17,12 @@ t_amb = 1200
 C = 700
 ro = 7800
 starting_temp = 100
-dt = 50
-end_time = 500
+dt = 1
+end_time = 100
 
 
 if __name__ == '__main__':
-    greed = grid.Grid(0.1, 0.1, 4, 4)
+    greed = grid.Grid(0.1, 0.1, 31, 31)
     # kt = 30
     if greed.nN != 16 or main.PUNKTY_CALKOWANIA != 2:
         print("symulacja dla reakcji egzotermicznej z chłodzeniem rdzenia")
@@ -36,7 +36,7 @@ if __name__ == '__main__':
     # print()
     # lokalny_uklad.printList(lokalny_uklad.ksztaltEta(greed.elements.__getitem__(0)))
     lokalny_uklad.liczDet(greed)
-
+    # print('.')
     matrixH.matrixpc(greed)
     # print('boundary ndoes')
     # for node in greed.nodes:
